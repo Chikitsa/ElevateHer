@@ -1,9 +1,3 @@
-// Project Expectations:
-// - Pre-built templates for female entrepreneurs
-// - Basic content management (text, images, contact forms)
-// - Simple e-commerce module (list products & accept payments)
-// - Payment integration options
-// - Basic analytics dashboard (visitor count & engagement)
 
 export const templates = [
   {
