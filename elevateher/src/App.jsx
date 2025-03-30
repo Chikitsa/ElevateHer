@@ -11,34 +11,17 @@ import Blog from './pages/Blog';
 import Support from './pages/Support';
 import Testimonials from './components/Common/Testimonials';
 import Dashboard from './components/Analytics/Dashboard';
+import { templates } from './data/templates';
 
 function App() {
   const [savedTemplates, setSavedTemplates] = useState([]);
   const [templatesLoaded, setTemplatesLoaded] = useState(false);
   const [activeCategory, setActiveCategory] = useState('all');
-  const [templates, setTemplates] = useState([]);
+ 
 
 
 
-  const fetchTemplates=async()=>{
-    try {
-      const response=await fetch("http://localhost:4000/templates");  
-      if (!response.ok) {
-        throw new Error(`Failed to fetch templates: ${response.status} ${response.statusText}`);
-      }
-      const data= await response.json();
-      setTemplates(data.templates);
-      setTemplatesLoaded(true);
-    } catch (error) {
-      console.error("Error fetching templates:", error);
-      // Use fallback data or show error message
-      setTemplatesLoaded(true);
-    }
-  }
 
-  useEffect(()=>{
-    fetchTemplates();
-  },[])
   
   useEffect(() => {
     // Load saved templates from localStorage

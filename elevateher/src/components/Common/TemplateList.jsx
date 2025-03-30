@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
+import {templates} from "../../data/templates";
 
 const TemplateCard = ({ template }) => {
   const navigate = useNavigate();
@@ -56,88 +57,12 @@ const TemplateCard = ({ template }) => {
 };
 
 const TemplateList = () => {
-  const [templates, setTemplates] = useState([]);
-  const [loading, setLoading] = useState(true);
+  
+  const [loading, setLoading] = useState(false);
   const [activeCategory, setActiveCategory] = useState('all');
   const [error, setError] = useState(null);
   
-  useEffect(() => {
-    // In a real application, you would fetch this from your API
-    fetch('http://localhost:4000/templates')
-      .then(response => {
-        if (!response.ok) {
-          // Fallback to local data if API is not available
-          throw new Error('API not available');
-        }
-        const data = response.json();
-        return data;
-      })
-      .catch(() => {
-        console.log('Using fallback template data');
-        // Fallback data for development
-        return [
-          {
-            id: "business-professional",
-            name: "Business Professional",
-            description: "A clean, modern template perfect for corporate websites, startups, and professional services.",
-            thumbnail: "https://images.unsplash.com/photo-1460925895917-afdab827c52f?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80",
-            categories: ["business", "professional"],
-            sections: Array(8).fill(null)
-          },
-          {
-            id: "creative-portfolio",
-            name: "Creative Portfolio",
-            description: "Showcase your creative work with this visually striking template designed for artists, designers, and photographers.",
-            thumbnail: "https://images.unsplash.com/photo-1545235617-9465d2a55698?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80",
-            categories: ["creative", "portfolio"],
-            sections: Array(6).fill(null)
-          },
-          {
-            id: "online-store",
-            name: "Online Store",
-            description: "Start selling your products online with this conversion-optimized e-commerce template.",
-            thumbnail: "https://images.unsplash.com/photo-1472851294608-062f824d29cc?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80",
-            categories: ["ecommerce", "business"],
-            sections: Array(10).fill(null)
-          },
-          {
-            id: "wellness-coaching",
-            name: "Wellness & Coaching",
-            description: "Perfect for coaches, wellness professionals, and personal brands with a clean, inviting design.",
-            thumbnail: "https://images.unsplash.com/photo-1545205445-638366659a5a?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80",
-            categories: ["health", "service"],
-            sections: Array(7).fill(null)
-          },
-          {
-            id: "personal-blog",
-            name: "Personal Blog",
-            description: "Share your thoughts and stories with this elegant blog template designed for content creators.",
-            thumbnail: "https://images.unsplash.com/photo-1499750310107-5fef28a66643?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80",
-            categories: ["blog", "personal"],
-            sections: Array(5).fill(null)
-          },
-          {
-            id: "restaurant-cafe",
-            name: "Restaurant & Café",
-            description: "Showcase your menu, ambiance, and location with this appetizing template for food establishments.",
-            thumbnail: "https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80",
-            categories: ["food", "service"],
-            sections: Array(9).fill(null)
-          }
-        ];
-      })
-      .then(data => {
-        console.log('Templates loaded:', data);
-        setTemplates(data.templates);
-        setLoading(false);
-      })
-      .catch(err => {
-        console.error('Error loading templates:', err);
-        setError('Failed to load templates. Please try again.');
-        setLoading(false);
-      });
-  }, []);
-
+  
   // Extract all unique categories from templates
   const categories = ['all', ...new Set(templates.flatMap(template => template.categories || []))];
   
